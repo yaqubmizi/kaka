@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ওয়েব বিল্ডিং | ইয়াকুব মিজি অনিম</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Noto Sans Bengali', system-ui, sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ========== লাইট মোড (সফট নীলাভ সাদা) ========== */
+    :root {
+      --bg-primary: #f0f4f8;
+      --bg-secondary: #ffffff;
+      --card-bg: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --border: #dce3ec;
+      --accent: #6366f1;
+      --accent-soft: #818cf8;
+      --accent-light: #eef2ff;
+      --accent-glow: rgba(99,102,241,0.08);
+      --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+      --gradient-2: linear-gradient(135deg, #8b5cf6, #a855f7);
+      --shadow: 0 5px 20px rgba(0,0,0,0.03);
+      --header-bg: rgba(255,255,255,0.92);
+    }
+
+    /* ========== ডার্ক মোড (সফট পার্পলিশ ডার্ক) ========== */
+    body.dark {
+      --bg-primary: #0f0f1a;
+      --bg-secondary: #1a1a2e;
+      --card-bg: #16213e;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --border: #2d2d5a;
+      --accent: #818cf8;
+      --accent-soft: #a78bfa;
+      --accent-light: #1e1e3a;
+      --accent-glow: rgba(129,140,248,0.1);
+      --gradient-1: linear-gradient(135deg, #818cf8, #a78bfa);
+      --gradient-2: linear-gradient(135deg, #a78bfa, #c084fc);
+      --shadow: 0 5px 20px rgba(0,0,0,0.2);
+      --header-bg: rgba(26,26,46,0.92);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 2.5rem;
+    }
+
+    /* হেডার */
+    header {
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      padding: 0.7rem 1.8rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+    }
+
+    .logo h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: var(--gradient-1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo p {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+    }
+
+    .menu {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: 0.2s;
+      font-size: 0.85rem;
+    }
+
+    .menu a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      background: var(--accent-light);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      color: var(--accent);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+
+    /* হিরো */
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-secondary);
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .gradient-text {
+      background: var(--gradient-1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0.8rem auto 0;
+      font-size: 0.95rem;
+    }
+
+    /* সেকশন */
+    .section {
+      margin: 2.5rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-header i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    /* গ্রিড */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    /* কার্ড */
+    .card {
+      background: var(--card-bg);
+      border-radius: 1.2rem;
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-soft);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* রোডম্যাপ স্টাইল */
+    .roadmap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      transition: 0.2s;
+    }
+
+    .roadmap-number {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 1rem;
+    }
+
+    /* টুলস গ্রিড */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .tool-item i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .tool-item span {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tool-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    /* প্রজেক্ট আইডিয়া */
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    /* ইন্সট্রাক্টর */
+    .instructor-card {
+      background: var(--gradient-1);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      color: white;
+    }
+
+    .instructor-icon {
+      font-size: 3rem;
+    }
+
+    .instructor-info h3 {
+      font-size: 1.3rem;
+    }
+
+    .instructor-info p {
+      opacity: 0.9;
+      font-size: 0.85rem;
+    }
+
+    /* যোগাযোগ */
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-icon {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.5rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    .contact-icon:hover {
+      border-color: var(--accent);
+    }
+
+    .creator {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background: var(--accent-light);
+      border-radius: 1rem;
+      font-size: 0.8rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0.8rem 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .section-header h2 { font-size: 1.2rem; }
+      header { flex-direction: column; gap: 0.6rem; text-align: center; }
+      .instructor-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header data-aos="fade-down">
+    <div class="logo">
+      <h1><i class="fas fa-code"></i> ওয়েব বিল্ডিং</h1>
+      <p>ওয়েবসাইট তৈরির সম্পূর্ণ গাইড</p>
+    </div>
+    <div class="menu">
+      <a href="#home">হোম</a>
+      <a href="#basics">বেসিক</a>
+      <a href="#roadmap">রোডম্যাপ</a>
+      <a href="#tools">টুলস</a>
+      <a href="#projects">প্রজেক্ট</a>
+      <a href="#contact">যোগাযোগ</a>
+      <button class="theme-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i> <span>ডার্ক</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- হিরো -->
+  <div id="home" class="hero" data-aos="fade-up">
+    <h1><span class="gradient-text">ওয়েব বিল্ডিং</span> শিখুন</h1>
+    <p>শূন্য থেকে শুরু করে সম্পূর্ণ ওয়েবসাইট তৈরি করা শিখুন — ফ্রন্টএন্ড, ব্যাকএন্ড, ডাটাবেজ এবং ডিপ্লয়মেন্ট</p>
+  </div>
+
+  <!-- ওয়েব বিল্ডিং বেসিক -->
+  <div id="basics" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-question-circle"></i>
+      <h2>🔧 ওয়েব বিল্ডিং কী?</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>ওয়েব বিল্ডিং</h3>
+        <p>ওয়েব বিল্ডিং হলো ওয়েবসাইট তৈরির সম্পূর্ণ প্রক্রিয়া — ডিজাইন, ডেভেলপমেন্ট, ডাটাবেজ কানেকশন, হোস্টিং এবং ডিপ্লয়মেন্ট। এটি একটি ওয়েবসাইটকে আইডিয়া থেকে লাইভ করার যাত্রা।</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="150">
+        <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <h3>কেন শিখবেন?</h3>
+        <p>বর্তমান ডিজিটাল যুগে প্রতিটি ব্যবসার ওয়েবসাইট প্রয়োজন। ওয়েব বিল্ডিং শিখলে আপনি ফ্রিল্যান্সিং, চাকরি বা নিজের ব্যবসা শুরু করতে পারবেন।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- লার্নিং রোডম্যাপ -->
+  <div id="roadmap" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-map-signs"></i>
+      <h2>🗺️ ওয়েব বিল্ডিং রোডম্যাপ</h2>
+    </div>
+    <div class="grid-2" style="gap: 1rem;">
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="roadmap-number">১</div>
+        <div><h3 style="font-size: 1rem;">HTML & CSS</h3><p style="font-size: 0.8rem;">ওয়েবসাইটের কাঠামো ও ডিজাইন — প্রথম ধাপ</p></div>
+      </div>
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="120">
+        <div class="roadmap-number">২</div>
+        <div><h3 style="font-size: 1rem;">JavaScript</h3><p style="font-size: 0.8rem;">ইন্টারঅ্যাকটিভিটি ও ডায়নামিক ফিচার</p></div>
+      </div>
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="140">
+        <div class="roadmap-number">৩</div>
+        <div><h3 style="font-size: 1rem;">ফ্রেমওয়ার্ক (React/Vue)</h3><p style="font-size: 0.8rem;">আধুনিক ফ্রন্টএন্ড ডেভেলপমেন্ট</p></div>
+      </div>
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="160">
+        <div class="roadmap-number">৪</div>
+        <div><h3 style="font-size: 1rem;">ব্যাকএন্ড (Node.js/PHP)</h3><p style="font-size: 0.8rem;">সার্ভার, ডাটাবেজ ও এপিআই</p></div>
+      </div>
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="180">
+        <div class="roadmap-number">৫</div>
+        <div><h3 style="font-size: 1rem;">ডাটাবেজ (MySQL/MongoDB)</h3><p style="font-size: 0.8rem;">ডেটা সংরক্ষণ ও ম্যানেজমেন্ট</p></div>
+      </div>
+      <div class="roadmap-item" data-aos="fade-up" data-aos-delay="200">
+        <div class="roadmap-number">৬</div>
+        <div><h3 style="font-size: 1rem;">ডিপ্লয়মেন্ট</h3><p style="font-size: 0.8rem;">হোস্টিং এ সাইট লাইভ করা</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ফ্রন্টএন্ড বনাম ব্যাকএন্ড -->
+  <div class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-code-branch"></i>
+      <h2>⚡ ফ্রন্টএন্ড vs ব্যাকএন্ড</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card" data-aos="flip-left" data-aos-delay="100">
+        <i class="fas fa-tv" style="font-size: 1.6rem; color: var(--accent);"></i>
+        <h3>ফ্রন্টএন্ড (ক্লায়েন্ট-সাইড)</h3>
+        <p>যা ব্যবহারকারী দেখে — ডিজাইন, বাটন, অ্যানিমেশন, লেআউট। টুলস: HTML, CSS, JavaScript, React, Tailwind</p>
+        <div class="tag-list" style="display: flex; gap: 6px; margin-top: 10px;">
+          <span class="tag" style="background: var(--accent-light); padding: 3px 10px; border-radius: 20px; font-size: 10px;">UI/UX</span>
+          <span class="tag" style="background: var(--accent-light); padding: 3px 10px; border-radius: 20px; font-size: 10px;">রেস্পন্সিভ</span>
+        </div>
+      </div>
+      <div class="card" data-aos="flip-left" data-aos-delay="150">
+        <i class="fas fa-server" style="font-size: 1.6rem; color: var(--accent);"></i>
+        <h3>ব্যাকএন্ড (সার্ভার-সাইড)</h3>
+        <p>যা পর্দার আড়ালে কাজ করে — ডেটা প্রসেসিং, লগইন সিস্টেম, ডাটাবেজ। টুলস: Node.js, PHP, Python, MySQL</p>
+        <div class="tag-list" style="display: flex; gap: 6px; margin-top: 10px;">
+          <span class="tag" style="background: var(--accent-light); padding: 3px 10px; border-radius: 20px; font-size: 10px;">API</span>
+          <span class="tag" style="background: var(--accent-light); padding: 3px 10px; border-radius: 20px; font-size: 10px;">ডাটাবেজ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- প্রয়োজনীয় টুলস -->
+  <div id="tools" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-toolbox"></i>
+      <h2>🛠️ ওয়েব বিল্ডিং টুলস</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="50"><i class="fab fa-html5"></i><span>HTML5</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="80"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="110"><i class="fab fa-js"></i><span>JavaScript</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="140"><i class="fab fa-react"></i><span>React</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="170"><i class="fab fa-node"></i><span>Node.js</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-database"></i><span>MongoDB</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="230"><i class="fab fa-git-alt"></i><span>Git</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="260"><i class="fab fa-figma"></i><span>Figma</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="290"><i class="fas fa-code"></i><span>VS Code</span></div>
+      <div class="tool-item" data-aos="fade-up" data-aos-delay="320"><i class="fab fa-bootstrap"></i><span>Bootstrap</span></div>
+    </div>
+  </div>
+
+  <!-- প্রজেক্ট আইডিয়াস -->
+  <div id="projects" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-rocket"></i>
+      <h2>🚀 প্রজেক্ট আইডিয়াস</h2>
+    </div>
+    <div class="grid-3">
+      <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-user" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">পোর্টফোলিও সাইট</h3>
+        <p style="font-size: 0.75rem;">নিজের দক্ষতা দেখানোর জন্য ব্যক্তিগত পোর্টফোলিও</p>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="130">
+        <i class="fas fa-shopping-cart" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">ই-কমার্স সাইট</h3>
+        <p style="font-size: 0.75rem;">পণ্য বিক্রির জন্য সম্পূর্ণ অনলাইন স্টোর</p>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="160">
+        <i class="fas fa-blog" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">ব্লগ প্ল্যাটফর্ম</h3>
+        <p style="font-size: 0.75rem;">নিবন্ধ প্রকাশের জন্য ব্লগিং সাইট</p>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="190">
+        <i class="fas fa-tasks" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">টাস্ক ম্যানেজার</h3>
+        <p style="font-size: 0.75rem;">টুডু অ্যাপ ও টাস্ক ম্যানেজমেন্ট সিস্টেম</p>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="220">
+        <i class="fas fa-chat" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">চ্যাট অ্যাপ্লিকেশন</h3>
+        <p style="font-size: 0.75rem;">রিয়েল-টাইম মেসেজিং অ্যাপ</p>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="250">
+        <i class="fas fa-weather-sun" style="font-size: 1.8rem; color: var(--accent);"></i>
+        <h3 style="margin-top: 8px;">আবহাওয়া অ্যাপ</h3>
+        <p style="font-size: 0.75rem;">এপিআই ব্যবহার করে আবহাওয়া তথ্য দেখানো</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ডিপ্লয়মেন্ট গাইড -->
+  <div class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <h2>☁️ ডিপ্লয়মেন্ট প্ল্যাটফর্ম</h2>
+    </div>
+    <div class="grid-4">
+      <div class="card" data-aos="fade-up" data-aos-delay="100" style="text-align: center;">
+        <i class="fab fa-github" style="font-size: 1.5rem;"></i>
+        <h3 style="font-size: 0.9rem;">GitHub Pages</h3>
+        <p style="font-size: 0.7rem;">ফ্রি স্ট্যাটিক হোস্টিং</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="130" style="text-align: center;">
+        <i class="fas fa-cloud" style="font-size: 1.5rem;"></i>
+        <h3 style="font-size: 0.9rem;">Vercel</h3>
+        <p style="font-size: 0.7rem;">ফ্রন্টএন্ড ডিপ্লয়মেন্ট</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="160" style="text-align: center;">
+        <i class="fas fa-globe" style="font-size: 1.5rem;"></i>
+        <h3 style="font-size: 0.9rem;">Netlify</h3>
+        <p style="font-size: 0.7rem;">অটো ডিপ্লয় + ফর্ম</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="190" style="text-align: center;">
+        <i class="fas fa-server" style="font-size: 1.5rem;"></i>
+        <h3 style="font-size: 0.9rem;">Render</h3>
+        <p style="font-size: 0.7rem;">ব্যাকএন্ড হোস্টিং</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- প্রশিক্ষক -->
+  <div id="instructor" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-chalkboard-user"></i>
+      <h2>👨‍💻 আপনার প্রশিক্ষক</h2>
+    </div>
+    <div class="instructor-card" data-aos="fade-up">
+      <div class="instructor-icon"><i class="fas fa-user-astronaut"></i></div>
+      <div class="instructor-info">
+        <h3>ইয়াকুব মিজি অনিম</h3>
+        <p>ওয়েব ডেভেলপার ও ডিজাইনার | ক্রিয়েটিভ এআই ইনস্টিটিউট</p>
+        <p>🎓 আলিম পড়াশোনা করছেন | ফ্রন্টএন্ড, ব্যাকএন্ড ও ফুল স্ট্যাক ডেভেলপমেন্টে দক্ষ</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- যোগাযোগ -->
+  <div id="contact" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-paper-plane"></i>
+      <h2>📬 আমার সাথে যোগাযোগ করুন</h2>
+    </div>
+    <div class="card" data-aos="fade-up">
+      <div class="contact-icons">
+        <a href="https://www.facebook.com/share/1CvjZtcC7b/" target="_blank" class="contact-icon"><i class="fab fa-facebook-f"></i> ফেসবুক</a>
+        <a href="https://wa.me/8801868656094" target="_blank" class="contact-icon"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ</a>
+        <a href="mailto:yakubmizi210@gmail.com" class="contact-icon"><i class="fas fa-envelope"></i> জিমেইল</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ক্রিয়েটর -->
+  <div class="creator" data-aos="zoom-in">
+    <p><i class="fas fa-crown"></i> এই ওয়েবসাইটটি তৈরি করেছেন: <strong>ইয়াকুব মিজি অনিম</strong></p>
+  </div>
+
+  <footer>
+    <p>© ২০২৬ ওয়েব বিল্ডিং — ওয়েবসাইট তৈরির সম্পূর্ণ নির্দেশিকা</p>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 500, once: true, offset: 30 });
+
+  const toggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  if (localStorage.getItem('theme') === 'light') {
+    body.classList.remove('dark');
+    toggle.innerHTML = '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
+  } else {
+    body.classList.add('dark');
+    toggle.innerHTML = '<i class="fas fa-sun"></i> <span>লাইট</span>';
+  }
+
+  toggle.addEventListener('click', () => {
+    if (body.classList.contains('dark')) {
+      body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      toggle.innerHTML = '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
+    } else {
+      body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      toggle.innerHTML = '<i class="fas fa-sun"></i> <span>লাইট</span>';
+    }
+  });
+</script>
+</body>
+</html>
